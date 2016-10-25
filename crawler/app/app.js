@@ -2,6 +2,7 @@
 var request = require("request");
 var fs = require("fs");
 var cheerio = require("cheerio");
+var organizeType = 1;
 var organizeName = "bocom";
 var organizeNo = 5;
 request({
@@ -31,13 +32,23 @@ request({
        var earningRate = $item.find('.nb').eq(2).text();
        var productUrl = $item.find('a').attr('href');
        result.push({
-         organizeName:organizeName,
+         organizeType:organizeType,
          organizeNo:organizeNo,
+         organizeName:organizeName,
+         productNo:'',
          productName:productName,
+         prductType:'',
+         productStyle:'',
          customerLevel:customerLevel,
          startAmount:startAmount,
+         currency:'',
          riskLevel:riskLevel,
          earningRate:earningRate,
+         productRegion:'',
+         startDate:'',
+         endDate:'',
+         expireDate:'',
+         productTerm:'',
          productUrl:productUrl
        })
      });

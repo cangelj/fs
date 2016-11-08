@@ -3,6 +3,10 @@
 var request = require("request");
 var fs = require("fs");
 var cheerio = require("cheerio");
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/crawler');
+var collection = db.get('datacollection');
 var requestUrl = 'http://www.cmbchina.com/cfweb/svrajax/product.ashx?op=search&type=m&pageindex=1&salestatus=&baoben=&currency=&term=&keyword=&series=01&risk=&city=&date=&pagesize=2000&orderby=ord1&t=0.5675271345005815';
 var organizeType = 1;
 var organizeName = "cmb";
@@ -44,6 +48,6 @@ request({
       });
   }
 
-
-  fs.writeFileSync("../result/cmb.json", JSON.stringify(result));
+  collection.insert(result);
+  // fs.writeFileSync("../result/cmb.json", JSON.stringify(result));
 });

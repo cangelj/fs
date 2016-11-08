@@ -2,6 +2,10 @@
 var request = require("request");
 var fs = require("fs");
 var cheerio = require("cheerio");
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/crawler');
+var collection = db.get('datacollection');
 var organizeType = 1;
 var organizeName = "bocom";
 var organizeNo = 5;
@@ -55,5 +59,6 @@ request({
       // console.log($element.find('mark'));
   });
    //console.log(JSON.stringify(result));
-  fs.writeFileSync("../result/bocom.json", JSON.stringify(result));
+  //fs.writeFileSync("../result/bocom.json", JSON.stringify(result));
+   collection.insert(result);
 });
